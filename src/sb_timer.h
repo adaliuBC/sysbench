@@ -57,6 +57,10 @@
 #define MS2SEC(msec) ((msec) / (double) MS_PER_SEC)
 #define SEC2MS(sec) ((sec) * MS_PER_SEC)
 
+/* Convert microseconds to seconds and vice versa */
+#define US2SEC(usec) ((usec) / (double) US_PER_SEC)
+#define SEC2US(sec) ((sec) * US_PER_SEC)
+
 /* Difference between two 'timespec' values in nanoseconds */
 #define TIMESPEC_DIFF(a,b) (SEC2NS(a.tv_sec - b.tv_sec) + \
 			    (a.tv_nsec - b.tv_nsec))

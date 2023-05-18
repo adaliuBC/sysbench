@@ -187,11 +187,11 @@ static void sigalrm_thread_init_timeout_handler(int sig)
 void sb_report_intermediate(sb_stat_t *stat)
 {
   log_timestamp(LOG_NOTICE, stat->time_total,
-                "thds: %" PRIu32 " eps: %4.2f lat (ms,%u%%): %4.2f",
+                "thds: %" PRIu32 " eps: %4.2f lat (us,%u%%): %4.2f",
                 stat->threads_running,
                 stat->events / stat->time_interval,
                 sb_globals.percentile,
-                SEC2MS(stat->latency_pct));
+                SEC2US(stat->latency_pct));
   if (sb_globals.tx_rate > 0)
     log_timestamp(LOG_NOTICE, stat->time_total,
                   "queue length: %" PRIu64 " concurrency: %" PRIu64,
@@ -298,22 +298,22 @@ void sb_report_cumulative(sb_stat_t *stat)
 
   log_text(LOG_NOTICE, "");
 
-  log_text(LOG_NOTICE, "Latency (ms):");
+  log_text(LOG_NOTICE, "Latency (us):");
   log_text(LOG_NOTICE, "         min: %39.2f",
-           SEC2MS(stat->latency_min));
+           SEC2US(stat->latency_min));
   log_text(LOG_NOTICE, "         avg: %39.2f",
-           SEC2MS(stat->latency_avg));
+           SEC2US(stat->latency_avg));
   log_text(LOG_NOTICE, "         max: %39.2f",
-           SEC2MS(stat->latency_max));
+           SEC2US(stat->latency_max));
 
   if (sb_globals.percentile > 0)
     log_text(LOG_NOTICE, "        %3dth percentile: %27.2f",
-             sb_globals.percentile, SEC2MS(stat->latency_pct));
+             sb_globals.percentile, SEC2US(stat->latency_pct));
   else
     log_text(LOG_NOTICE, "         percentile stats:               disabled");
 
   log_text(LOG_NOTICE, "         sum: %39.2f",
-           SEC2MS(stat->latency_sum));
+           SEC2US(stat->latency_sum));
   log_text(LOG_NOTICE, "");
 
   /* Aggregate temporary timers copy */
